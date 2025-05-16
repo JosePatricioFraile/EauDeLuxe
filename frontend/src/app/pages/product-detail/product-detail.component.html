@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+
+<div class="product-detail-container">
+  <!-- Detalles del Perfume -->
+  <div class="perfume-details">
+    <img
+      [src]="'http://localhost:3000' + perfume.image_url"
+      alt="{{ perfume.name }}"
+      style="max-width: 300px;"
+    />
+    <div class="perfume-info">
+      <h2>{{ perfume.brand }} - {{ perfume.name }}</h2>
+      <p>{{ perfume.description }}</p>
+
+      <!-- Selector de tamaño y precio -->
+      <div>
+        <label for="size">Tamaño:</label>
+        <select id="size" [(ngModel)]="selectedSize" (change)="onSizeChange()">
+          <option value="50">
+            50 ml - {{ perfume.price50 | currency: 'EUR':'symbol' }}
+          </option>
+          <option value="100">
+            100 ml - {{ perfume.price100 | currency: 'EUR':'symbol' }}
+          </option>
+        </select>
+      </div>
+
+      <div class="size-selector">
+  <button
+    type="button"
+    [class.selected]="selectedSize === '50'"
+    (click)="selectSize('50')"
+  >
+    50 ml - {{ perfume.price50 | currency:'EUR':'symbol' }}
+  </button>
+  <button
+    type="button"
+    [class.selected]="selectedSize === '100'"
+    (click)="selectSize('100')"
+  >
+    100 ml - {{ perfume.price100 | currency:'EUR':'symbol' }}
+  </button>
+</div>
+
+      <div>
+        <strong>Total: {{ totalPrice | currency: 'EUR':'symbol' }}</strong>
+      </div>
+
+      <button (click)="addToCart()">Añadir a cesta</button>
+    </div>
+  </div>
+
+  <!-- Notas Olfativas -->
+  <app-product-notes [notes]="perfume.notes"></app-product-notes>
+
+  <!-- Reseñas -->
+  <app-product-reviews [reviews]="perfume.reviews"></app-product-reviews>
+</div>
+
+<app-footer></app-footer>

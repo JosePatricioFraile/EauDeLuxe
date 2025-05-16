@@ -1,0 +1,28 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <a routerLink="/">
+      <img src="/logo.png" alt="Logo EauDeLuxe" class="logo" />
+    </a>
+  </div>
+
+  <div class="navbar-center">
+    <input type="search" placeholder="Buscar..." class="search-input" />
+    <button class="search-button">🔍</button>
+  </div>
+
+  <div class="navbar-right">
+    <a *ngIf="!auth.isAuthenticated()" routerLink="/login" title="Iniciar sesión" class="icon-link">👤</a>
+    <button *ngIf="auth.isAuthenticated()" (click)="logout()" title="Cerrar sesión" class="logout-button">
+      Salir
+    </button>
+    <a routerLink="/cart" title="Carrito" class="icon-link">🛒</a>
+  </div>
+</nav>
+
+<div class="navbar-menu">
+  <a routerLink="/hombre">Hombre</a>
+  <a routerLink="/mujer">Mujer</a>
+  <a routerLink="/unisex">Unisex</a>
+  <a routerLink="/invierno">Invierno</a>
+  <a routerLink="/verano">Verano</a>
+</div>

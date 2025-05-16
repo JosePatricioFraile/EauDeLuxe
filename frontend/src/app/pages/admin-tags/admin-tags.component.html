@@ -1,0 +1,23 @@
+<div class="tags">
+  <h3>Categorías</h3>
+  <form (submit)="addCategory()">
+    <input [(ngModel)]="newCategory" name="cat" required>
+    <button type="submit">Añadir</button>
+  </form>
+  <ul>
+    <li *ngFor="let c of categories">
+      {{ c.name }} <button (click)="deleteCategory(c.id)">❌</button>
+    </li>
+  </ul>
+
+  <h3>Notas</h3>
+  <form (submit)="addNote()">
+    <input [(ngModel)]="newNote" name="note" required>
+    <button type="submit">Añadir</button>
+  </form>
+  <ul>
+    <li *ngFor="let n of notes">
+      {{ n.name }} <button (click)="deleteNote(n.id)">❌</button>
+    </li>
+  </ul>
+</div>

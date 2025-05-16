@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+<div class="auth-container">
+  <h2>INICIA SESIÓN O REGÍSTRATE</h2>
+
+  <div class="tabs">
+    <span [class.active]="activeTab === 'login'" (click)="activeTab = 'login'">YA SOY CLIENTE</span>
+    <span [class.active]="activeTab === 'register'" (click)="activeTab = 'register'">SOY NUEVO</span>
+  </div>
+
+  <!-- Login -->
+  <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="login()">
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+      Email inválido.
+    </small>
+
+    <label>Contraseña</label>
+    <div class="password-wrapper">
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+      <span (click)="showPassword = !showPassword">👁️</span>
+    </div>
+    <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      Mínimo 6 caracteres.
+    </small>
+
+    <div class="options">
+      <label><input type="checkbox" formControlName="remember" /> Recordarme</label>
+      <a href="#">¿Contraseña olvidada?</a>
+    </div>
+
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <!-- Registro -->
+  <form *ngIf="activeTab === 'register'" [formGroup]="registerForm" (ngSubmit)="register()">
+    <label>Nombre</label>
+    <input type="text" formControlName="name" />
+    <small *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+      Nombre obligatorio.
+    </small>
+
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      Email inválido.
+    </small>
+    <small *ngIf="registerEmailError" style="color: red;">
+      {{ registerEmailError }}
+    </small>
+
+    <label>Contraseña</label>
+    <input type="password" formControlName="password" />
+    <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      Mínimo 6 caracteres.
+    </small>
+
+    <button type="submit">Registrarme</button>
+  </form>
+</div>

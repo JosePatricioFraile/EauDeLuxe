@@ -1,0 +1,23 @@
+.footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  background-color: #f3f3f3;
+
+  .links {
+    margin-bottom: 0.5rem;
+
+    a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+    }
+  }
+
+  .social span {
+    margin: 0 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+}
