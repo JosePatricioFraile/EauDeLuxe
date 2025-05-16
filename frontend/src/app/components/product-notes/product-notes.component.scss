@@ -1,0 +1,11 @@
+.notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.note-chip {
+  background-color: #e0e0e0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+}

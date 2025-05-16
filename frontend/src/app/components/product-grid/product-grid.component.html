@@ -1,0 +1,25 @@
+<section class="recommendations">
+  <h2>Recomendaciones</h2>
+
+  <div class="grid">
+    <a
+      *ngFor="let p of visiblePerfumes"
+      class="card"
+      [routerLink]="['/perfume', p.id]"
+    >
+      <img [src]="'http://localhost:3000' + p.image_url" alt="{{ p.name }}">
+      <h3>{{ p.brand }}</h3>
+      <p>{{ p.name }}</p>
+      <p>{{ p.price | currency: 'EUR':'symbol' }}</p>
+      <button (click)="$event.preventDefault()">Añadir 🛒</button>
+    </a>
+  </div>
+
+  <button
+    *ngIf="visiblePerfumes.length < products.length"
+    class="ver-mas"
+    (click)="loadMore()"
+  >
+    Ver más
+  </button>
+</section>

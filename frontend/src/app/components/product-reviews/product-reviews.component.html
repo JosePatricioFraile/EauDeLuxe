@@ -1,0 +1,7 @@
+<div *ngIf="safeReviews.length > 0">
+  <div *ngFor="let review of safeReviews" class="review">
+    <strong>{{ review.user_name }}</strong> ({{ review.rating }}/5)
+    <p>{{ review.comment }}</p>
+    <small>{{ review.created_at | date:'medium' }}</small>
+  </div>
+</div>

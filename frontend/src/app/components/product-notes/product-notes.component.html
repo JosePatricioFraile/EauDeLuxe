@@ -1,0 +1,6 @@
+<div class="notes-container" *ngIf="safeNotes.length > 0">
+  <h3>Notas olfativas</h3>
+  <div class="notes-list">
+    <span class="note-chip" *ngFor="let note of safeNotes">{{ note.name }}</span>
+  </div>
+</div>
