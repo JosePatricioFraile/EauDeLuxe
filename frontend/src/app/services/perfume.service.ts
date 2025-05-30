@@ -44,4 +44,18 @@ export class PerfumeService {
   getPerfumes(): Observable<Perfume[]> {
     return this.http.get<Perfume[]>(this.baseUrl);
   }
+
+  searchPerfumes(query: string): Observable<Perfume[]> {
+    const url = `${this.baseUrl}?q=${encodeURIComponent(query)}`;
+    return this.http.get<Perfume[]>(url);
+  }
+
+  searchPerfumesWithFilters(params: any): Observable<Perfume[]> {
+    const query = new URLSearchParams(params).toString();
+    return this.http.get<Perfume[]>(`${this.baseUrl}?${query}`);
+  }
+
+  getNotes(): Observable<Note[]> {
+    return this.http.get<Note[]>('http://localhost:3000/api/notes');
+  }
 }

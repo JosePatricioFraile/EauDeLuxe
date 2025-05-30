@@ -1,0 +1,26 @@
+<h2>Listado de Perfumes</h2>
+<a routerLink="/admin/perfumes/new">Crear nuevo perfume</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Marca</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let perfume of perfumes">
+      <td>{{ perfume.id }}</td>
+      <td><img [src]="'http://localhost:3000' + perfume.image_url" width="40" /></td>
+      <td>{{ perfume.name }}</td>
+      <td>{{ perfume.brand }}</td>
+      <td>
+        <a [routerLink]="['/admin/perfumes', perfume.id]">Editar</a>
+        <button (click)="deletePerfume(perfume.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

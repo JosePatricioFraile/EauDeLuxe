@@ -1,18 +1,19 @@
 <section class="recommendations">
   <h2>Recomendaciones</h2>
 
-  <div class="grid">
-    <a
-      *ngFor="let p of visiblePerfumes"
-      class="card"
-      [routerLink]="['/perfume', p.id]"
-    >
-      <img [src]="'http://localhost:3000' + p.image_url" alt="{{ p.name }}">
-      <h3>{{ p.brand }}</h3>
-      <p>{{ p.name }}</p>
-      <p>{{ p.price | currency: 'EUR':'symbol' }}</p>
-      <button (click)="$event.preventDefault()">Añadir 🛒</button>
-    </a>
+  <div class="grid-container">
+    <div *ngFor="let p of visiblePerfumes" class="card">
+      <a [routerLink]="['/perfume', p.id]">
+        <img [src]="'http://localhost:3000' + p.image_url" alt="{{ p.name }}">
+        <h3>{{ p.brand }}</h3>
+        <p class="name">{{ p.name }}</p>
+      </a>
+
+      <div class="card-footer">
+        <span class="price">{{ p.price100 | currency: 'EUR' }}</span>
+        <button (click)="addToCart(p)">Añadir <i class="bi bi-cart"></i></button>
+      </div>
+    </div>
   </div>
 
   <button
@@ -20,6 +21,6 @@
     class="ver-mas"
     (click)="loadMore()"
   >
-    Ver más
+    Ver más 
   </button>
 </section>

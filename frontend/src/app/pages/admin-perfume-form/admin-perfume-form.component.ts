@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-admin-perfume-form',
@@ -14,48 +15,72 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./admin-perfume-form.component.scss'],
   imports: [
     CommonModule,
-    RouterModule,
     ReactiveFormsModule,
-    HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ]
 })
 export class AdminPerfumeFormComponent implements OnInit {
-  perfumeForm: FormGroup;
+  perfumeForm!: FormGroup;
+  selectedFile: File | null = null;
   isEdit = false;
+  perfumeId: number | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  private apiUrl = 'http://localhost:3000/api';
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
     this.perfumeForm = this.fb.group({
       name: [''],
       brand: [''],
       description: [''],
-      price: [0],
-      stock: [0]
+      gender: [''],
+      stock: [''],
+      price50: [''],
+      price100: ['']
     });
-  }
 
-  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
-      this.http.get(`http://localhost:3000/api/perfumes/${id}`).subscribe((data: any) => {
+      this.perfumeId = +id;
+      this.http.get<any>(`${this.apiUrl}/perfumes/${id}`).subscribe((data) => {
         this.perfumeForm.patchValue(data);
       });
     }
   }
 
-  onSubmit(): void {
-    const body = this.perfumeForm.value;
-    const id = this.route.snapshot.paramMap.get('id');
-    const url = id
-      ? `http://localhost:3000/api/admin/perfumes/${id}`
-      : `http://localhost:3000/api/admin/perfumes`;
-    const request = id
-      ? this.http.put(url, body)
-      : this.http.post(url, body);
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
 
-    request.subscribe(() => this.router.navigate(['/admin']));
+  onSubmit() {
+    const formData = new FormData();
+    for (const key in this.perfumeForm.value) {
+      formData.append(key, this.perfumeForm.value[key]);
+    }
+
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+
+    const request = this.isEdit
+      ? this.http.put(`${this.apiUrl}/admin/perfumes/${this.perfumeId}`, formData)
+      : this.http.post(`${this.apiUrl}/admin/perfumes`, formData);
+
+    request.subscribe(() => {
+      alert('Perfume guardado correctamente');
+      this.router.navigate(['/admin']);
+    });
   }
 }

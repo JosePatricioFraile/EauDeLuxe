@@ -1,0 +1,34 @@
+<div class="cart-container" *ngIf="cartItems.length > 0; else empty">
+  <h2>Tu cesta</h2>
+
+  <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+    <img [src]="'http://localhost:3000' + item.image_url" alt="{{ item.name }}" />
+    <div class="details">
+      <h3>{{ item.brand }} - {{ item.name }}</h3>
+      <p>Tamaño: {{ item.size }} ml</p>
+      <p>Precio unitario: {{ item.price | currency:'EUR' }}</p>
+
+      <div class="quantity">
+        <button (click)="updateQuantity(i, -1)">−</button>
+        <span>{{ item.quantity }}</span>
+        <button (click)="updateQuantity(i, 1)">+</button>
+      </div>
+
+      <p class="subtotal">Subtotal: {{ item.price * item.quantity | currency:'EUR' }}</p>
+      <button class="remove" (click)="removeItem(i)">Eliminar</button>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h3>Total: {{ total | currency:'EUR' }}</h3>
+    <a class="checkout" routerLink="/pago">Ir a pagar</a>
+    <button class="clear" (click)="clearCart()">Vaciar cesta</button>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="empty-cart">
+    <h2>Tu cesta está vacía 🛒</h2>
+    <a routerLink="/">Volver a la tienda</a>
+  </div>
+</ng-template>

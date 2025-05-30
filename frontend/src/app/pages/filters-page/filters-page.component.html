@@ -1,0 +1,59 @@
+<div class="filters-layout">
+  <aside class="sidebar">
+    <h3>Género</h3>
+    <select [(ngModel)]="selectedGender" (change)="updateFilter('gender', selectedGender)">
+      <option value="">Todos</option>
+      <option value="H">Hombre</option>
+      <option value="M">Mujer</option>
+      <option value="U">Unisex</option>
+    </select>
+
+    <h3>Precio</h3>
+    <input
+      type="number"
+      placeholder="Mín"
+      [(ngModel)]="selectedMinPrice"
+      (change)="updateFilter('minPrice', selectedMinPrice)"
+    />
+    <input
+      type="number"
+      placeholder="Máx"
+      [(ngModel)]="selectedMaxPrice"
+      (change)="updateFilter('maxPrice', selectedMaxPrice)"
+    />
+
+    <h3>Notas</h3>
+    <select [(ngModel)]="selectedNote" (change)="updateFilter('note', selectedNote)">
+      <option value="">Todas</option>
+      <option *ngFor="let note of notes" [value]="note.id">{{ note.name }}</option>
+    </select>
+
+    <h3>Ordenar</h3>
+    <select [(ngModel)]="selectedOrder" (change)="updateFilter('orderBy', selectedOrder)">
+      <option value="">Relevancia</option>
+      <option value="price100_asc">Precio: menor a mayor</option>
+      <option value="price100_desc">Precio: mayor a menor</option>
+      <option value="name_asc">Nombre A-Z</option>
+      <option value="name_desc">Nombre Z-A</option>
+    </select>
+
+    <button (click)="clearFilters()" class="clear-button">Limpiar filtros</button>
+  </aside>
+
+  <main class="content">
+    <div *ngIf="isLoading">Cargando perfumes...</div>
+    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <div
+      *ngIf="!isLoading && !errorMessage && filteredProducts.length === 0"
+      class="no-results"
+    >
+      ❌ No se encontraron perfumes con los filtros seleccionados.
+    </div>
+
+    <app-product-grid
+      *ngIf="!isLoading && filteredProducts.length > 0"
+      [products]="filteredProducts"
+    ></app-product-grid>
+  </main>
+</div>

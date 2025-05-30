@@ -1,0 +1,31 @@
+<div class="account-container" *ngIf="!isLoading">
+  <h2>Mi cuenta</h2>
+
+  <form (ngSubmit)="guardar()">
+    <label>Nombre:</label>
+    <input [(ngModel)]="name" name="name" required />
+
+    <label>Email:</label>
+    <input [(ngModel)]="email" name="email" required type="email" />
+
+    <h3>Dirección</h3>
+
+    <label>Calle:</label>
+    <input [(ngModel)]="address.address" name="address" required />
+
+    <label>Ciudad:</label>
+    <input [(ngModel)]="address.city" name="city" required />
+
+    <label>Código postal:</label>
+    <input [(ngModel)]="address.postal_code" name="postal_code" required />
+
+    <label>País:</label>
+    <input [(ngModel)]="address.country" name="country" required />
+
+    <button type="submit">Guardar cambios</button>
+  </form>
+</div>
+
+<a routerLink="/pedidos" class="account-link"><i class="bi bi-file-text-fill"></i> Ver mis pedidos</a>
+
+<button class="logout-button" (click)="logout()">Cerrar sesión</button>

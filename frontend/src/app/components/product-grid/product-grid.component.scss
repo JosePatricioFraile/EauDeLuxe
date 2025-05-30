@@ -1,62 +1,116 @@
-.grid {
+.recommendations {
+  padding: 2rem;
+
+  h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+}
+
+.grid-container {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 4rem;
+  padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  justify-items: center; // ⬅️ centra solo horizontalmente
 }
 
 .card {
-  display: block;
+  max-width: 320px; // límite por card
+  width: 100%; // importante para que se adapte sin romper el grid
+  min-height: 380px;
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
 
   img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 8px;
+    height: auto;
+    object-fit: contain;
+    max-height: 180px;
     margin-bottom: 1rem;
   }
 
-  h3 {
-    margin: 0.5rem 0 0;
-    font-size: 1rem;
-    font-weight: bold;
+  h3,
+  .name {
+    text-align: left;
+    margin: 0;
+    line-height: 1.4;
   }
 
-  p {
-    margin: 0.3rem 0;
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .name {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #000;
   }
 
   button {
-    margin-top: 0.5rem;
-    background: #1976d2;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 0.5rem 1.2rem;
-    border-radius: 5px;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
     cursor: pointer;
-  }
+    font-size: 0.9rem;
 
-  &:hover {
-    transform: scale(1.02);
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 }
 
 .ver-mas {
   display: block;
-  margin: 2rem auto 1rem;
-  padding: 0.6rem 2rem;
-  background: #1976d2;
-  color: white;
-  font-size: 1rem;
+  margin: 2rem auto 0;
+  background-color: #3798ff;
+  color: #fff;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: #007bff;
+  }
 }

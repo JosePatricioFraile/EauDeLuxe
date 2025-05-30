@@ -21,7 +21,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NavbarComponent,
     MatSnackBarModule
   ],
   templateUrl: './login-register.component.html',

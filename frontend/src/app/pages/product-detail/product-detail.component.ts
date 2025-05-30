@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PerfumeService } from '../../services/perfume.service';
+import { CartService } from '../../services/cart.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ProductNotesComponent } from '../../components/product-notes/product-notes.component';
@@ -16,8 +17,6 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    NavbarComponent,
-    FooterComponent,
     ProductNotesComponent,
     ProductReviewsComponent
   ]
@@ -30,7 +29,8 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private perfumeService: PerfumeService
+    private perfumeService: PerfumeService,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -38,11 +38,8 @@ export class ProductDetailComponent implements OnInit {
     if (id) {
       this.perfumeService.getPerfumeById(id).subscribe((data) => {
         this.perfume = data;
-
-        // Forzamos que notes y reviews sean arrays para evitar errores en hijos
         this.perfume.notes = this.perfume.notes ?? [];
         this.perfume.reviews = this.perfume.reviews ?? [];
-
         this.calculateTotalPrice();
       });
     }
@@ -50,7 +47,7 @@ export class ProductDetailComponent implements OnInit {
 
   calculateTotalPrice() {
     if (this.perfume) {
-      let price = this.selectedSize === '50' ? this.perfume.price50 : this.perfume.price100;
+      const price = this.selectedSize === '50' ? this.perfume.price50 : this.perfume.price100;
       this.totalPrice = price * this.quantity;
     }
   }
@@ -59,17 +56,39 @@ export class ProductDetailComponent implements OnInit {
     this.calculateTotalPrice();
   }
 
- selectSize(size: string) {
-  this.selectedSize = size;
-  this.calculateTotalPrice();
-}
+  selectSize(size: string) {
+    this.selectedSize = size;
+    this.calculateTotalPrice();
+  }
 
+  increaseQuantity() {
+    this.quantity++;
+    this.calculateTotalPrice();
+  }
+
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+      this.calculateTotalPrice();
+    }
+  }
 
   onQuantityChange() {
     this.calculateTotalPrice();
   }
 
   addToCart() {
-    alert(`Añadido ${this.quantity} unidades de ${this.selectedSize}ml, total: ${this.totalPrice} €`);
+    const item = {
+      id: this.perfume.id,
+      name: this.perfume.name,
+      brand: this.perfume.brand,
+      image_url: this.perfume.image_url,
+      size: this.selectedSize,
+      quantity: this.quantity,
+      price: this.selectedSize === '50' ? this.perfume.price50 : this.perfume.price100
+    };
+
+    this.cartService.addToCart(item);
+    alert('Producto añadido a la cesta');
   }
 }

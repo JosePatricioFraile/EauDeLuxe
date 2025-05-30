@@ -1,0 +1,108 @@
+.account-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    
+    label {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input {
+      margin-top: 0.3rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #1e90ff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+      }
+    }
+
+    h3 {
+      margin-top: 2rem;
+      font-weight: 700;
+      color: #222;
+      border-bottom: 2px solid #1e90ff;
+      padding-bottom: 0.25rem;
+    }
+
+    button[type="submit"] {
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background-color: #1e90ff;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #1565c0;
+      }
+    }
+  }
+}
+
+.account-link {
+  display: block;
+  max-width: 600px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #1e90ff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  
+  i {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    color: #1565c0;
+  }
+}
+
+.logout-button {
+  display: block;
+  max-width: 600px;
+  margin: 2rem auto 3rem;
+  padding: 0.7rem;
+  background-color: #e63946;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #a02833;
+  }
+}

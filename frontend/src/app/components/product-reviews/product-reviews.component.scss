@@ -1,4 +1,127 @@
 .reviews {
-  padding: 1rem;
-  border-top: 1px solid #ccc;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f7faff;
+  border: 1px solid #d3e3f3;
+  border-radius: 8px;
+
+  h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #1e3a5f;
+  }
+
+  .review {
+    background: #ffffff;
+    border-left: 4px solid #3798ff;
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+    strong {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #222;
+    }
+
+    .rating {
+      color: #f5b301;
+      margin-left: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    p {
+      margin: 0.5rem 0 0.2rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    small {
+      font-size: 0.75rem;
+      color: #888;
+    }
+  }
+
+  .review-form {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #c7cfd6;
+
+    h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #1e3a5f;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+      min-height: 80px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    select {
+      padding: 6px 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-left: 8px;
+    }
+
+    button {
+      margin-top: 10px;
+      background-color: #1e90ff;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #1478d7;
+      }
+
+      &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.star-rating {
+  margin: 10px 0;
+
+  label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+
+  .stars {
+    display: inline-block;
+
+    .star {
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: #ccc;
+      transition: color 0.2s;
+
+      &.filled {
+        color: #f5b301;
+      }
+
+      &:hover {
+        color: #f5b301;
+      }
+    }
+  }
 }

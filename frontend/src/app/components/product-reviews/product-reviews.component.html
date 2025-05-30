@@ -1,7 +1,40 @@
-<div *ngIf="safeReviews.length > 0">
-  <div *ngFor="let review of safeReviews" class="review">
-    <strong>{{ review.user_name }}</strong> ({{ review.rating }}/5)
-    <p>{{ review.comment }}</p>
-    <small>{{ review.created_at | date:'medium' }}</small>
+<div class="reviews">
+  <h3>Reseñas</h3>
+
+  <div *ngIf="safeReviews.length > 0; else noReviews">
+    <div *ngFor="let review of safeReviews" class="review">
+      <strong>{{ review.user_name }}</strong>
+      <span class="rating">({{ review.rating }}/5)</span>
+      <p>{{ review.comment }}</p>
+      <small>{{ review.created_at | date:'medium' }}</small>
+    </div>
+  </div>
+
+  <ng-template #noReviews>
+    <p>No hay reseñas aún.</p>
+  </ng-template>
+
+  <div *ngIf="isLoggedIn" class="review-form">
+    <h4>Escribe tu reseña</h4>
+    <textarea [(ngModel)]="newComment" rows="3" placeholder="Tu comentario..."></textarea>
+    <div>
+      <div class="star-rating">
+  <label>Valoración:</label>
+  <span class="stars">
+    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+      <i
+        class="star"
+        [class.filled]="star <= (hoveredRating || newRating)"
+        (mouseenter)="hoveredRating = star"
+        (mouseleave)="hoveredRating = 0"
+        (click)="newRating = star"
+      >★</i>
+    </ng-container>
+  </span>
+</div>
+
+
+    </div>
+    <button (click)="submitReview()" [disabled]="isSubmitting || !newComment.trim()">Enviar</button>
   </div>
 </div>

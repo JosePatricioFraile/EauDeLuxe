@@ -1,11 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
-const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+
+const { verifyToken, verifyAdmin } = require('./middlewares/auth'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,27 +35,6 @@ app.use((req, res, next) => {
 // Ruta para servir imágenes subidas
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// JWT Middleware y roles
-const SECRET = 'CLAVE_SECRETA_SEGURA';
-
-const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) return res.status(403).json({ message: 'Token requerido' });
-
-  jwt.verify(token, SECRET, (err, decoded) => {
-    if (err) return res.status(401).json({ message: 'Token inválido' });
-    req.user = decoded;
-    next();
-  });
-};
-
-const verifyAdmin = (req, res, next) => {
-  if (req.user?.role !== 'admin') {
-    return res.status(403).json({ message: 'Acceso solo para administradores' });
-  }
-  next();
-};
-
 // Configuración multer para subir imágenes
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
@@ -73,14 +55,19 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 // Rutas
 app.use('/api/admin', verifyToken, verifyAdmin, require('./routes/admin'));
 app.use('/api/reviews', verifyToken, require('./routes/reviews'));
-app.use('/api/users', require('./routes/users'));
+app.use('/api/users', require('./routes/users')); // 🔐 El middleware se aplica por ruta cuando se necesita
 app.use('/api/perfumes', require('./routes/perfumes'));
 app.use('/api/cart', verifyToken, require('./routes/cart'));
 app.use('/api/orders', verifyToken, require('./routes/orders'));
+app.use('/api/notes', require('./routes/notes'));
+app.use('/api/checkout', require('./routes/checkout'));
+app.use('/api/stripe', require('./routes/stripe-webhook'));
+app.use('/uploads', express.static('uploads'));
+
 
 // Ruta raíz para test
 app.get('/', (req, res) => {
-  res.send('API de la Tienda de Perfumes funcionando ✅');
+  res.send('API de la Tienda de Perfumes funcionando');
 });
 
 // Levantar servidor

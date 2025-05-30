@@ -1,0 +1,48 @@
+.filters-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  /* Quita cualquier height aquí si lo tienes */
+  
+  .sidebar {
+    width: 220px;
+    background: #f3f3f3;
+    padding: 1rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+    /* No uses flex-grow ni height aquí */
+  }
+
+  .content {
+    flex: 1;
+    overflow-x: hidden;
+    /* Aquí el contenido es flexible y determina altura */
+  }
+
+  .clear-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #b71c1c;
+    }
+  }
+
+  .no-results {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    color: #444;
+    border-left: 4px solid #ff5252;
+    font-size: 1rem;
+  }
+}

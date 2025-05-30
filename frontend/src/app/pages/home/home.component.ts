@@ -11,9 +11,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    NavbarComponent,
     ProductGridComponent,
-    FooterComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

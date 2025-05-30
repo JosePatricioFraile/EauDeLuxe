@@ -6,23 +6,44 @@
   </div>
 
   <div class="navbar-center">
-    <input type="search" placeholder="Buscar..." class="search-input" />
-    <button class="search-button">🔍</button>
+    <div class="search-wrapper">
+      <input
+        type="search"
+        placeholder="Buscar..."
+        class="search-input"
+        [(ngModel)]="searchText"
+        (keydown.enter)="search()"
+      />
+      <button class="search-button" (click)="search()">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
   </div>
 
   <div class="navbar-right">
-    <a *ngIf="!auth.isAuthenticated()" routerLink="/login" title="Iniciar sesión" class="icon-link">👤</a>
-    <button *ngIf="auth.isAuthenticated()" (click)="logout()" title="Cerrar sesión" class="logout-button">
-      Salir
-    </button>
-    <a routerLink="/cart" title="Carrito" class="icon-link">🛒</a>
+    <ng-container *ngIf="!auth.isAuthenticated(); else loggedIn">
+      <a routerLink="/login" title="Iniciar sesión" class="icon-link"
+        ><i class="bi bi-person-fill"></i
+      ></a>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <a routerLink="/cuenta" title="Mi cuenta" class="icon-link"
+        ><i class="bi bi-person-fill"></i
+      ></a>
+      <a *ngIf="isAdmin" routerLink="/admin" title="Admin" class="icon-link"
+        ><i class="bi bi-tools"></i
+      ></a>
+    </ng-template>
+
+    <a routerLink="/cesta" title="Ver cesta" class="icon-link"
+      ><i class="bi bi-cart-fill"></i
+    ></a>
   </div>
 </nav>
 
 <div class="navbar-menu">
-  <a routerLink="/hombre">Hombre</a>
-  <a routerLink="/mujer">Mujer</a>
-  <a routerLink="/unisex">Unisex</a>
-  <a routerLink="/invierno">Invierno</a>
-  <a routerLink="/verano">Verano</a>
+  <a (click)="filterByGender('hombre')">Hombre</a>
+  <a (click)="filterByGender('mujer')">Mujer</a>
+  <a (click)="filterByGender('unisex')">Unisex</a>
 </div>

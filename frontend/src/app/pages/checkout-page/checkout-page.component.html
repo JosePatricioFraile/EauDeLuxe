@@ -1,0 +1,39 @@
+<div class="checkout-container">
+  <h2>Finalizar compra</h2>
+
+  <form (ngSubmit)="confirmOrder()" class="checkout-form">
+    <label>Nombre completo:</label>
+    <input [(ngModel)]="name" name="name" required />
+
+    <label>Dirección de envío:</label>
+    <input [(ngModel)]="address" name="address" required />
+
+    <label>Email:</label>
+    <input [(ngModel)]="email" name="email" type="email" required />
+
+    <label>Método de pago:</label>
+    <select [(ngModel)]="paymentMethod" name="paymentMethod">
+      <option value="card">Tarjeta de crédito</option>
+      <option value="paypal">PayPal</option>
+      <option value="cash">Contra reembolso</option>
+    </select>
+
+    <h3>Resumen del pedido:</h3>
+    <ul>
+      <li *ngFor="let item of cartItems">
+        {{ item.name }} ({{ item.size }}ml) × {{ item.quantity }}
+        - {{ item.price * item.quantity | currency:'EUR' }}
+      </li>
+    </ul>
+
+    <p class="total">Total: {{ total | currency:'EUR' }}</p>
+
+    <button type="submit" [disabled]="paymentMethod !== 'card'">
+      Pagar con tarjeta 💳
+    </button>
+
+    <p *ngIf="paymentMethod !== 'card'" style="color: red;">
+      Por ahora solo está disponible el pago con tarjeta (Stripe).
+    </p>
+  </form>
+</div>

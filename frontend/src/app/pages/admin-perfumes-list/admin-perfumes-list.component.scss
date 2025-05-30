@@ -1,0 +1,89 @@
+h2 {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-weight: 600;
+  color: #333;
+}
+
+a[routerLink="/admin/perfumes/new"] {
+  display: inline-block;
+  margin: 0 0 1rem 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #1976d2; // azul material
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1565c0;
+  }
+}
+
+table {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto 3rem auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+
+  thead {
+    background-color: #1976d2;
+    color: white;
+
+    th {
+      padding: 12px 15px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid #1565c0;
+    }
+  }
+
+  tbody {
+    background-color: #f9f9f9;
+
+    tr {
+      &:nth-child(even) {
+        background-color: #e3f2fd; // un azul clarito para filas pares
+      }
+    }
+
+    td {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+
+      img {
+        border-radius: 4px;
+        display: block;
+      }
+
+      button {
+        background-color: #e53935; // rojo material
+        border: none;
+        color: white;
+        padding: 6px 12px;
+        margin-left: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #b71c1c;
+        }
+      }
+
+      a {
+        color: #1976d2;
+        font-weight: 500;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

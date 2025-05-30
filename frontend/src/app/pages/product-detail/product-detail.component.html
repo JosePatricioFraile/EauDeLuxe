@@ -1,60 +1,56 @@
-<app-navbar></app-navbar>
-
-<div class="product-detail-container">
-  <!-- Detalles del Perfume -->
+<div class="product-detail-container" *ngIf="perfume">
   <div class="perfume-details">
     <img
       [src]="'http://localhost:3000' + perfume.image_url"
       alt="{{ perfume.name }}"
-      style="max-width: 300px;"
     />
+
     <div class="perfume-info">
-      <h2>{{ perfume.brand }} - {{ perfume.name }}</h2>
-      <p>{{ perfume.description }}</p>
+      <h2>{{ perfume.brand }}</h2>
+      <p>{{ perfume.name }}</p>
 
-      <!-- Selector de tamaño y precio -->
-      <div>
-        <label for="size">Tamaño:</label>
-        <select id="size" [(ngModel)]="selectedSize" (change)="onSizeChange()">
-          <option value="50">
-            50 ml - {{ perfume.price50 | currency: 'EUR':'symbol' }}
-          </option>
-          <option value="100">
-            100 ml - {{ perfume.price100 | currency: 'EUR':'symbol' }}
-          </option>
-        </select>
-      </div>
+      <!-- Selector de tamaño estilo radio -->
+      <div class="size-options">
+  <div class="option">
+    <div
+      class="radio-circle"
+      [class.selected]="selectedSize === '50'"
+      (click)="selectSize('50')"
+    ></div>
+    <span class="label">50 ml</span>
+    <span class="price">{{ perfume.price50 | currency:'EUR' }}</span>
+  </div>
 
-      <div class="size-selector">
-  <button
-    type="button"
-    [class.selected]="selectedSize === '50'"
-    (click)="selectSize('50')"
-  >
-    50 ml - {{ perfume.price50 | currency:'EUR':'symbol' }}
-  </button>
-  <button
-    type="button"
-    [class.selected]="selectedSize === '100'"
-    (click)="selectSize('100')"
-  >
-    100 ml - {{ perfume.price100 | currency:'EUR':'symbol' }}
-  </button>
+  <div class="option">
+    <div
+      class="radio-circle"
+      [class.selected]="selectedSize === '100'"
+      (click)="selectSize('100')"
+    ></div>
+    <span class="label">100 ml</span>
+    <span class="price">{{ perfume.price100 | currency:'EUR' }}</span>
+  </div>
 </div>
 
-      <div>
-        <strong>Total: {{ totalPrice | currency: 'EUR':'symbol' }}</strong>
+
+      <!-- Precio total y control de cantidad -->
+      <div class="total-row">
+        <div class="label">Total</div>
+        <div class="price">{{ totalPrice | currency:'EUR' }}</div>
       </div>
 
-      <button (click)="addToCart()">Añadir a cesta</button>
+      <div class="cart-row">
+        <div class="quantity-buttons">
+          <button (click)="decreaseQuantity()">−</button>
+          <span>{{ quantity }}</span>
+          <button (click)="increaseQuantity()">+</button>
+        </div>
+        <button class="add-to-cart" (click)="addToCart()">Añadir a cesta</button>
+      </div>
     </div>
   </div>
 
-  <!-- Notas Olfativas -->
   <app-product-notes [notes]="perfume.notes"></app-product-notes>
-
-  <!-- Reseñas -->
-  <app-product-reviews [reviews]="perfume.reviews"></app-product-reviews>
+  <app-product-reviews [reviews]="perfume.reviews" [perfumeId]="perfume.id"></app-product-reviews>
 </div>
 
-<app-footer></app-footer>
